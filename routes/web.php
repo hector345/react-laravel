@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+Route::get('/', [HomeController::class, 'show']);
+//grupo de rutas /campany
+//blog
+Route::controller(PostsController::class)->group(function () {
+    //create
+    Route::get("/posts/create", "create");
+    Route::get("/posts/{post}", "show");
+    //store
+    Route::post("/posts", "store");
+    //edit
+    Route::get("/posts/{post}/edit", "edit");
+    //update patch
+    Route::patch("/posts/{post}", "update");
+    //delete
+    Route::delete("/posts/{post}", "destroy");
 });
